@@ -1,0 +1,10 @@
+﻿# 词汇映射表
+
+project:
+  bei: "悖"
+
+modules:
+  core: "核心"
+
+commands:
+  build: "构建"

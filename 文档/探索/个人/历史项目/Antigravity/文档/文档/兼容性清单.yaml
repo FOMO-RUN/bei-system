@@ -1,0 +1,92 @@
+# 悖 (BEI) — Unicode 兼容性清单
+# 格式：YAML 结构化，便于程序读取和自动校验
+
+# 使用说明：
+# - 每次引入新工具/框架/协议时，先做预检测
+# - 记录检测结果到本文件
+# - 终端只输出结论和本文件路径
+
+检测记录:
+  # 示例条目
+  - 工具: cargo
+    版本: "1.75+"
+    检测日期: "2026-01-29"
+    检测项:
+      - 命名点: crate名
+        支持unicode: false
+        证据: "Cargo.toml 仅允许 [a-zA-Z0-9_-]"
+      - 命名点: feature名
+        支持unicode: false
+        证据: "features 键名遵循 crate 名规则"
+      - 命名点: 文件路径
+        支持unicode: true
+        证据: "Windows NTFS + Rust std::fs 支持 Unicode 路径"
+    裁决: "crate/feature 用 ASCII，路径/注释/文档用中文"
+    证据路径: null  # runs/<run_id>/evidence/xxx.log
+
+  - 工具: git
+    版本: "2.52+"
+    检测日期: "2026-01-29"
+    检测项:
+      - 命名点: 分支名
+        支持unicode: true
+        证据: "git branch '功能/测试' 成功创建"
+      - 命名点: 提交信息
+        支持unicode: true
+        证据: "git commit -m '中文提交' 成功"
+      - 命名点: 文件路径
+        支持unicode: true
+        证据: "Windows + Git 2.x 默认 UTF-8"
+    裁决: "全中文"
+    证据路径: null
+
+  - 工具: jj
+    版本: "0.37+"
+    检测日期: "2026-01-29"
+    检测项:
+      - 命名点: 提交描述
+        支持unicode: true
+        证据: "jj describe -m '中文描述' 成功"
+      - 命名点: 书签名
+        支持unicode: 待验证
+        证据: null
+    裁决: 待完善
+    证据路径: null
+
+  - 工具: cargo
+    版本: "1.93+"
+    检测日期: "2026-01-30"
+    检测项:
+      - 命名点: src目录名
+        支持unicode: true
+        证据: "将 src/ 改为 源码/，配置 [lib] path = 源码/库.rs，编译成功"
+      - 命名点: main.rs/lib.rs文件名
+        支持unicode: true
+        证据: "main.rs→入口.rs、lib.rs→库.rs，通过 path 配置指定，编译测试均通过"
+    裁决: "目录名和入口文件名均可中文化，需在 Cargo.toml 显式指定 path"
+    证据路径: null
+
+  - 工具: mingw/gcc
+    版本: "15.2.0"
+    检测日期: "2026-01-30"
+    检测项:
+      - 命名点: target构建目录名
+        支持unicode: false
+        证据: "使用 target-dir=构建 配置，编译时 collect2.exe 报 ld returned 1 exit status"
+    裁决: "target 目录必须保持 ASCII（GNU 工具链限制）"
+    证据路径: null
+
+  - 工具: msvc
+    版本: "v143 (VS 2022)"
+    检测日期: "2026-01-30"
+    检测项:
+      - 命名点: target构建目录名
+        支持unicode: true
+        证据: "使用 target-dir=构建 配置，cargo build + cargo test 均成功"
+    裁决: "MSVC 工具链完全支持 Unicode 路径，已设为项目默认"
+    证据路径: null
+
+# 风险等级定义：
+# - 低: 工具明确支持，有官方文档
+# - 中: 工具支持但有边界情况
+# - 高: 不支持或未知，需要映射层

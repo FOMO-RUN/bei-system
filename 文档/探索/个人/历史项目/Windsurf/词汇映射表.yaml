@@ -1,0 +1,46 @@
+# ASCII 机器名 → 中文显示名映射表
+
+# 项目核心
+project:
+  bei: "悖"
+  antinomy: "悖论"
+
+# 模块映射
+modules:
+  core: "核心"
+  orchestrator: "编排层"
+  chinese_processor: "中文处理"
+  evidence_chain: "证据链"
+  skill_library: "技能库"
+  compatibility: "兼容性检测"
+
+# 目录映射
+directories:
+  ai_map: "AI地图"
+  modules: "模块"
+  docs: "文档"
+  runs: "运行记录"
+  skills: "技能"
+
+# 文件映射
+files:
+  context_md: "上下文文档"
+  ai_map_md: "AI地图"
+  compatibility_md: "兼容性清单"
+  vocabulary_yaml: "词汇映射表"
+  decision_ledger_md: "语言裁决账本"
+
+# 技能映射
+skills:
+  code_generation: "代码生成"
+  file_creation: "文件创建"
+  validation: "验证"
+  replay: "回放"
+
+# 命令映射
+commands:
+  init: "初始化"
+  build: "构建"
+  test: "测试"
+  run: "运行"
+  validate: "验证"

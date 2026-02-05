@@ -1,0 +1,8 @@
+﻿[package]
+name = "bei"
+version = "0.0.1"
+edition = "2021"
+
+[[bin]]
+name = "悖"
+path = "源码/入口.rs"
